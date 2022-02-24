@@ -143,7 +143,7 @@ function movePlayer(player) {
                             player.cells[i].y++;
                         }
                     }
-                    else if(distance < radiusTotal / 1.75) {
+                    else if(distance < radiusTotal / 2) {
                         player.cells[i].mass += player.cells[j].mass;
                         player.cells[i].radius = util.massToRadius(player.cells[i].mass);
                         player.cells.splice(j, 1);
@@ -423,7 +423,7 @@ io.on('connection', function (socket) {
                 if(c.fireFood > 0)
                     masa = c.fireFood;
                 else
-                    masa = currentPlayer.cells[i].mass*0.1;
+                    masa = currentPlayer.cells[i].mass*0.2;
                 currentPlayer.cells[i].mass -= masa;
                 currentPlayer.massTotal -=masa;
                 massFood.push({
@@ -498,7 +498,7 @@ function tickPlayer(currentPlayer) {
         if(SAT.pointInCircle(new V(m.x, m.y), playerCircle)){
             if(m.id == currentPlayer.id && m.speed > 0 && z == m.num)
                 return false;
-            if(currentCell.mass > m.masa * 1.1)
+            if(currentCell.mass > m.masa * 1.5)
                 return true;
         }
         return false;
@@ -529,7 +529,7 @@ function tickPlayer(currentPlayer) {
     }
 
     function collisionCheck(collision) {
-        if (collision.aUser.mass > collision.bUser.mass * 1.1  && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2))*1.75) {
+        if (collision.aUser.mass > collision.bUser.mass * 1.5  && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2))* 2) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
             console.log('[DEBUG] Collision info:');
             console.log(collision);
