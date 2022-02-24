@@ -529,7 +529,7 @@ function tickPlayer(currentPlayer) {
     }
 
     function collisionCheck(collision) {
-        if (collision.aUser.mass > collision.bUser.mass * 1.5  && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2))* 2) {
+        if (collision.aUser.mass > collision.bUser.mass  && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 3) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
             console.log('[DEBUG] Collision info:');
             console.log(collision);
@@ -597,7 +597,8 @@ function tickPlayer(currentPlayer) {
         users.forEach(tree.put);
         var playerCollisions = [];
 
-        var otherUsers =  tree.get(currentPlayer, check);
+        //var otherUsers =  tree.get(currentPlayer, check);
+        var otherUsers = tree.get({x:currentCell.x, y: currentCell.y, w: currentCell.radius * 2, h: currentCell.radius * 2}, check);
 
         playerCollisions.forEach(collisionCheck);
     }
